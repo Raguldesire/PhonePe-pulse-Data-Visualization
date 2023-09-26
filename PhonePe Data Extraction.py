@@ -1,5 +1,6 @@
+#****************************************************************************************Installing Gitpython***********************************************************************************************************************
 pip install gitpython
-
+#****************************************************************************************Importing Libraries***********************************************************************************************************************
 import csv
 import subprocess
 import pandas as pd
@@ -7,9 +8,9 @@ import requests
 import git
 import pandas as pd
 import os
-
+#****************************************************************************************Connecting OS***********************************************************************************************************************
 os.system("git clone https://github.com/phonepe/pulse.git")
-
+#****************************************************************************************Basic usage in OS system***********************************************************************************************************************
 #OS-os library Python has a built-in os module with methods for interacting with the operating system,
     # like creating files and directories,
     # management of files and directories, input, output, environment variables, process management, etc.
@@ -22,7 +23,7 @@ os.system("git clone https://github.com/phonepe/pulse.git")
                   #A path-like object is either a string or bytes object representing a path.
 #os.path.isdir()--os.path.isdir() method in python is used to check whether the specified path is a directory or not.
 
-
+#****************************************************************************************Getting Details from the data aggregated transaction***********************************************************************************************************************
 import os
 import json
 import pandas as pd
@@ -58,7 +59,7 @@ for state_dir in os.listdir(os.path.join(root_dir, '/content/pulse/data/aggregat
                                     'Transaction_Amount': transaction_data['paymentInstruments'][0]['amount']
                                 }
                                 data_list.append(row_dict)
-
+#****************************************************************************************Convert list into Dataframe***********************************************************************************************************************
 # Convert list of dictionaries to dataframe
 df1 = pd.DataFrame(data_list)
 
@@ -96,7 +97,7 @@ for state_dir in os.listdir(root_dir):
       df2['subfolder'] = state_dir
       df2['subsubfolder'] = 'state'
 
-
+#****************************************************************************************Getting data from Map transaction***********************************************************************************************************************
 import os
 import json
 import pandas as pd
@@ -136,7 +137,7 @@ for state_dir in os.listdir(os.path.join(root_dir, '/content/pulse/data/map/tran
 
 # Convert list of dictionaries to dataframe
 df3 = pd.DataFrame(data_list)
-
+#****************************************************************************************Getting data from Map user***********************************************************************************************************************
 import os
 import json
 import pandas as pd
@@ -175,7 +176,7 @@ for state_dir in os.listdir(root_dir):
 
 # Convert list of dictionaries to dataframe
 df4 = pd.DataFrame(data_list)
-
+#****************************************************************************************Getting details from Top transaction***********************************************************************************************************************
 import os
 import json
 import pandas as pd
@@ -213,7 +214,7 @@ for state_dir in os.listdir(os.path.join(root_dir, '/content/pulse/data/top/tran
                                     'Transaction_Amount': districts['metric']['amount']
                                 }
                                 data_list.append(row_dict)
-
+#****************************************************************************************Convert those in Data frames***********************************************************************************************************************
 # Convert list of dictionaries to dataframe
 df5 = pd.DataFrame(data_list)
 
@@ -252,10 +253,10 @@ for state_dir in os.listdir(root_dir):
                                     'RegisteredUsers': district['registeredUsers'],
                                 }
                                 data_list.append(row_dict)
-
+#****************************************************************************************Converting into dataframe***********************************************************************************************************************
 # Convert list of dictionaries to dataframe
 df6 = pd.DataFrame(data_list)
-
+#****************************************************************************************Drop the duplicates in the dataframe***********************************************************************************************************************
 # Data transformation on file1
 # Drop any duplicates
 d1 = df1.drop_duplicates()
@@ -264,7 +265,7 @@ d4 = df4.drop_duplicates()
 d5 = df5.drop_duplicates()
 d6 = df6.drop_duplicates()
 
-
+#****************************************************************************************Checking null values***********************************************************************************************************************
 null_counts = d1.isnull().sum()
 null_counts = df2.isnull().sum()
 null_counts = d3.isnull().sum()
@@ -272,7 +273,7 @@ null_counts = d4.isnull().sum()
 null_counts = d5.isnull().sum()
 null_counts = d1.isnull().sum()
 
-
+#****************************************************************************************Creating a csv files***********************************************************************************************************************
 d1.to_csv('agg_trans.csv', index=False)
 df2.to_csv('agg_user.csv', index=False)
 d3.to_csv('map_tran.csv', index=False)
