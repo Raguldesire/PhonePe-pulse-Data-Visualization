@@ -1,3 +1,4 @@
+#******************************************************************************************Importing Libraries*************************************************************************************************************************
 import pymongo
 import psycopg2
 import pandas as pd
@@ -12,10 +13,10 @@ import matplotlib.pyplot as plt
 import requests
 import geopandas as gpd
 import psycopg2.extras as extras
-
-ragul =psycopg2.connect(host='localhost',user='postgres',password='ragul',port=5432,database='phone pe')
+#******************************************************************************************Connecting PostgreSQL*************************************************************************************************************************
+ragul =psycopg2.connect(host='localhost',user='postgres',password='****',port=5432,database='phone pe')
 cursor=ragul.cursor()
-
+#******************************************************************************************Creating csv files*************************************************************************************************************************
 
 d1=pd.read_csv(r".venv\agg_trans.csv")
 d2=pd.read_csv(r".venv\agg_user.csv")
@@ -23,6 +24,7 @@ d3=pd.read_csv(r".venv\map_tran.csv")
 d4=pd.read_csv(r".venv\map_user.csv")
 d5=pd.read_csv(r".venv\top_tran.csv")
 d6=pd.read_csv(r".venv\top_user.csv")
+#******************************************************************************************Creating table in PostgreSQL with Dataframe*************************************************************************************************************************
 def agg_trans():
     df=pd.DataFrame(d1)
     try:
@@ -167,7 +169,7 @@ def top_user():
     except:
          print("values already exists in the top_user table")
 
-
+#******************************************************************************************Creating streamlit dashboard*************************************************************************************************************************
 SELECT = option_menu(
     menu_title = None,
     options = ["About","Home","Basic insights","Contact"],
@@ -180,9 +182,9 @@ SELECT = option_menu(
         "nav-link-selected": {"background-color": "#0cb2bd"}})
 
 
-#---------------------Basic Insights -----------------#
 
 
+#******************************************************************************************Basic insights*************************************************************************************************************************
 if SELECT == "Basic insights":
     st.title(":violet[BASIC INSIGHTS]")
     st.write("----")
@@ -294,14 +296,14 @@ if SELECT == "Basic insights":
         with col2:
             st.title("Top 10 RegisteredUsers based on states and District")
             st.bar_chart(data=df,y="States",x="RegisteredUsers")
-
+#******************************************************************************************Connecting Postgresql*************************************************************************************************************************
 # execute a SELECT statement
 cursor.execute("SELECT * FROM agg_trans")
 
 # fetch all rows
 rows = cursor.fetchall()
 from streamlit_extras.add_vertical_space import add_vertical_space
-
+#******************************************************************************************Basic things of phonepe*************************************************************************************************************************
 if SELECT == "Home":
     st.image(Image.open(".venv\phonepe.png"),width = 500)
     col1,col2, = st.columns(2)
@@ -314,7 +316,7 @@ if SELECT == "Home":
         st.video(video_bytes)
         
     st.subheader(':violet[Registered Users Hotspots - States]')
-
+#******************************************************************************************Importing csv files for plotting*************************************************************************************************************************
     Data_Aggregated_Transaction_df= pd.read_csv(r'F:\asehyeash\.venv\Data_Aggregated_Transaction_Table.csv')
     Data_Aggregated_User_Summary_df= pd.read_csv(r'F:\asehyeash\.venv\Data_Aggregated_User_Summary_Table.csv')
     Data_Aggregated_User_df= pd.read_csv(r'F:\asehyeash\.venv\Data_Aggregated_User_Table.csv')
@@ -336,7 +338,7 @@ if SELECT == "Home":
                 ('1', '2', '3','4'))
     year=int(Year)
     quarter=int(Quarter)
-    
+  #******************************************************************************************Visualization of dataframes*************************************************************************************************************************  
     Transaction_scatter_districts=Data_Map_Transaction_df.loc[(Data_Map_Transaction_df['Year'] == year ) & (Data_Map_Transaction_df['Quarter']==quarter) ].copy()
     Transaction_Coropleth_States=Transaction_scatter_districts[Transaction_scatter_districts["State"] == "india"]
     Transaction_scatter_districts.drop(Transaction_scatter_districts.index[(Transaction_scatter_districts["State"] == "india")],axis=0,inplace=True)
@@ -367,7 +369,7 @@ if SELECT == "Home":
     Coropleth_Dataset['Total_Transactions']=Total_Transaction 
     
     
-    
+   #******************************************************************************************Connecting states into a scatter************************************************************************************************************************* 
     
     #scatter plotting the states codes 
     Indian_States = Indian_States.sort_values(by=['state'], ascending=False)
@@ -439,7 +441,7 @@ if SELECT == "Home":
         st.plotly_chart(fig, use_container_width=True)
         st.info('**:blue[The above bar graph showing the increasing order of PhonePe Transactions according to the states of India, Here we can observe the top states with highest Transaction by looking at graph]**')
 
-
+#******************************************************************************************About PhonePe*************************************************************************************************************************
 
 if SELECT == "About":
     st.image(Image.open(".venv\phonepe.png"),width = 500)
@@ -474,7 +476,7 @@ if SELECT == "About":
         data = f.read()
     st.download_button(":green[DOWNLOAD REPORT]",data,file_name="PhonePe_pulse_BCG_report.pdf")
 
-
+#******************************************************************************************About me*************************************************************************************************************************
 if SELECT == "Contact":
     name = "Ragul"
     mail = (f'{"Mail :"}  {"ragul1119@gmail.com"}')
