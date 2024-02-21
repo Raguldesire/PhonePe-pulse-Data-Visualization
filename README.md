@@ -28,7 +28,7 @@ the solution thoroughly and deploy the dashboard publicly, making it
 accessible to users.
 This approach leverages the power of Python and its numerous libraries to extract,
 transform, and analyze data, and create a user-friendly dashboard for visualizing
-the insights obtained from the data.
+the insights obtained from the data...
 
 # Required libraries to be imported
 ```python
