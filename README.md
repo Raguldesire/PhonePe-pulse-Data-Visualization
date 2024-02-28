@@ -7,7 +7,7 @@
 # Process Involved:
 1. ***Data extraction:*** Clone the GitHub using scripting to fetch the data from the
 Phonepe pulse Github repository and store it in a suitable format such as CSV
-or JSON.
+or JSON...
 2. ***Data transformation:*** Use a scripting language such as Python, along with
 libraries such as Pandas, to manipulate and pre-process the data. This may
 include cleaning the data, handling missing values, and transforming the data
